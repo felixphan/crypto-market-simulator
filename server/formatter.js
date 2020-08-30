@@ -23,13 +23,12 @@ const formatBitfinex = (res, totalRecord = 10) => {
         ask: originalData.ask,
         size: originalData.askSize
     })
-
     result = randValue(result, originalData, totalRecord);
 
     return result;
 }
 
-const formatBinance = ( res,totalRecord) => {
+const formatBinance = (res, totalRecord) => {
     let result = {
         bids: [],
         asks: [],
@@ -64,11 +63,8 @@ function randValue(result, originalData, totalRecord) {
     result.sumOfAskSize = originalData.askSize;
     for (let i = 0; i < totalRecord - 2; i++) {
         let rand = _.random(originalData.ask, originalData.bid);
-        let size = _.random(originalData.askSize, originalData.bidSize);
-        while (result.sumOfBid + (rand * size) >= 5) {
-            rand = _.random(originalData.ask, originalData.bid);
-            size = _.random(originalData.askSize, originalData.bidSize);
-        }
+        const avgBidSize = (5 - originalData.bid * originalData.bidSize) / rand / (totalRecord - 1);
+        let size = _.random(0, avgBidSize);
         result.sumOfBid += rand * size;
         result.bids.push({
             bid: rand,
@@ -76,10 +72,8 @@ function randValue(result, originalData, totalRecord) {
         });
 
         rand = _.random(originalData.ask, originalData.bid);
-        size = _.random(originalData.askSize, originalData.bidSize);
-        while (result.sumOfAskSize + size >= 150) {
-            size = _.random(originalData.askSize, originalData.bidSize);
-        }
+        const avgSize = (150 - originalData.askSize) / (totalRecord - 1);
+        size = _.random(originalData.askSize < avgSize ? originalData.askSize : 0, avgSize);
         result.sumOfAskSize += size;
 
         result.asks.push({

@@ -9,7 +9,12 @@ import { interval, Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'client';
-  data;
+  data = {
+    bids: [],
+    asks: [],
+    sumOfBid: 0,
+    sumOfAskSize: 0
+  };
   displayedColumns: string[] = ['size', 'bid'];
   displayedAskColumns: string[] = ['ask', 'size'];
   subscription: Subscription;
@@ -32,8 +37,8 @@ export class AppComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   fetchData() {
-    this.http.get(`http://13.236.137.99:3000/data?market=${this.selectedMarket}&pageSize=${this.selectedPageSize}`).subscribe(res => {
-      this.data = res;
+    this.http.get(`http://localhost:3000/data?market=${this.selectedMarket}&pageSize=${this.selectedPageSize}`).subscribe(res => {
+      this.data = res as any;
       this.bidTable.renderRows();
       this.askTable.renderRows();
     });
