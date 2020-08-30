@@ -1,0 +1,11 @@
+table {
+    width: 80%;
+}
+
+button {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+/* mat-grid-tile {
+    padding-top: calc((50% - 0.5px) * 1 + 0px) !important;
+} */
