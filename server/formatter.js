@@ -52,6 +52,7 @@ const formatBinance = (res, totalRecord) => {
         size: originalData.askSize
     })
 
+    console.log("Enter Here",result);
     result = randValue(result, originalData, totalRecord);
     return result;
 }
@@ -62,6 +63,7 @@ function randValue(result, originalData, totalRecord) {
     result.sumOfBid = originalData.bid * originalData.bidSize;
     result.sumOfAskSize = originalData.askSize;
     for (let i = 0; i < totalRecord - 2; i++) {
+        console.log('24123');
         let rand = _.random(originalData.ask, originalData.bid);
         const avgBidSize = (5 - originalData.bid * originalData.bidSize) / rand / (totalRecord - 1);
         let size = _.random(0, avgBidSize);
