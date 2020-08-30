@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   fetchData() {
-    this.http.get(`http://localhost:3000/data?market=${this.selectedMarket}&pageSize=${this.selectedPageSize}`).subscribe(res => {
+    this.http.get(`http://13.236.137.99:3000/data?market=${this.selectedMarket}&pageSize=${this.selectedPageSize}`).subscribe(res => {
       this.data = res;
       this.bidTable.renderRows();
       this.askTable.renderRows();
